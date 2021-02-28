@@ -1,7 +1,9 @@
 import os
+ROOT = "bullish"
 
-class Paths:
-    DATA_DIR = "bullish/data" 
+PATHS = {
+    "data_dir": os.path.join(ROOT, "data")
+}
 
 class Files:
-    WATCHLIST = os.path.join(Paths.DATA_DIR, "watchlist")
+    WATCHLIST = os.path.join(PATHS["data_dir"], "watchlist")
