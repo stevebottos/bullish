@@ -22,3 +22,4 @@ news_tree.add_command(commands.fetch)
 
 watchlist_tree.add_command(commands.ls)
 watchlist_tree.add_command(commands.add)
+watchlist_tree.add_command(commands.remove)

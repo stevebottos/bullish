@@ -10,7 +10,8 @@ with open(os.path.join(rel_path, req_file), "r") as fh:
     requirements = fh.readlines()
 
 for path in list(constants.PATHS.values()):
-    os.mkdir(path)
+    if not os.path.exists(path):
+        os.mkdir(path)
 
 setup(name='Bullish',
     version=0.1,

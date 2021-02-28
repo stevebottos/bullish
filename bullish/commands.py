@@ -10,23 +10,38 @@ from bullish import util, constants
 ###########################################################
 
 @click.command()
-@click.argument('ticker')
-@click.option('--num_articles', '-na', required=False, type=int, default=0)
-def fetch(ticker, num_articles):
-    news = util.finviz_scrape(ticker)
+@click.argument('tickers', nargs=-1)
+@click.option('--num_dates', '-nd', required=False, type=int, default=0)
+def fetch(tickers, num_dates):   
+    
+    tickers = list(tickers)
 
-    if num_articles > 0:
-        news = util.trim_down_to_n_dates(all_news, int(num_articles))
+    if "watchlist" in tickers:
+        tickers.remove("watchlist")
+        with open(constants.Files.WATCHLIST, "r") as f:
+                watchlist_tickers = [t.strip("\n") for t in f.readlines()]
+        tickers += watchlist_tickers
 
-    # Want the keys in reverse-chronological order from bottom up
-    reverse_chron = list(news.keys())[::-1]
-    print('')
-    for rc in reverse_chron:
-        print("-"*4+rc+"-"*120)
+    for ticker in tickers:
+        print(ticker)
+        ticker = ticker.upper()
+        news = util.finviz_scrape(ticker)
 
-        for news_entry in news[rc]:
-            print(f"{news_entry[0]}\n\t{news_entry[1]}")
+        if not news:
+            continue
+
+        if num_dates > 0:
+            news = util.trim_down_to_n_dates(news, int(num_dates))
+
+        # Want the keys in reverse-chronological order from bottom up
+        reverse_chron = list(news.keys())[::-1]
         print('')
+        for rc in reverse_chron:
+            print("-"*4+rc+"-"*4+ticker+"-"*92)
+
+            for news_entry in news[rc]:
+                print(f"{news_entry[0]}\n\t{news_entry[1]}")
+            print('')
 
 
 ###########################################################
@@ -44,23 +59,49 @@ def ls():
 
 
 @click.command()
-@click.argument('ticker')
-def add(ticker):
+@click.argument('tickers', nargs=-1)
+def add(tickers):
     if not os.path.exists(constants.Files.WATCHLIST):
        Path(constants.Files.WATCHLIST).touch()
 
     with open(constants.Files.WATCHLIST, "r") as f:
         watchlist = [t.strip("\n") for t in f.readlines()]
 
-    if ticker not in watchlist:
-        watchlist.append(ticker.upper())
-    else:
-        print(f"{ticker.upper()} already exists in watchlist")
-        return
+    for ticker in tickers:
+        ticker = ticker.upper()
+
+        if ticker not in watchlist:
+            watchlist.append(ticker)
+            print(f"{ticker} added to watchlist")
+        else:
+            print(f"{ticker} already exists in watchlist")
+            continue
 
     watchlist = sorted(watchlist)
-
     with open(constants.Files.WATCHLIST, "w+") as f:
         f.write('\n'.join(watchlist))
     
-    print(f"{ticker.upper()} added to watchlist")
+
+@click.command()
+@click.argument('tickers', nargs=-1)
+def remove(tickers):
+    if not os.path.exists(constants.Files.WATCHLIST):
+       print("No watchlist exists. Use \"bullish watchlist add <ticker>\" to create one.")
+
+    with open(constants.Files.WATCHLIST, "r") as f:
+        watchlist = [t.strip("\n") for t in f.readlines()]
+
+    for ticker in tickers:
+        ticker = ticker.upper()
+
+        if ticker in watchlist:
+            watchlist.remove(ticker)
+        else:
+            print(f"{ticker} does not exist in watchlist")
+            continue
+
+    watchlist = sorted(watchlist)
+    with open(constants.Files.WATCHLIST, "w+") as f:
+        f.write('\n'.join(watchlist))
+    
+    print(f"{ticker} removed from watchlist")

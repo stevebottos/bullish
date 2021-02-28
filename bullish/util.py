@@ -1,4 +1,3 @@
-
 import json
 
 from bs4 import BeautifulSoup
@@ -31,7 +30,6 @@ def finviz_scrape(ticker="TSLA"):
     dates_and_headlines = {}
     current_news_date = None
     for entry in news_entries:
-        # print(entry)
         date_tag = entry.find("td")
         
         if "style" in date_tag.attrs:
