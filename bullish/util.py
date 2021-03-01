@@ -1,7 +1,13 @@
 import json
+import logging 
 
 from bs4 import BeautifulSoup
 import requests
+
+
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.INFO)
+
 
 def trim_down_to_n_dates(dates_and_headlines: dict, n=3):
     delete_keys = list(dates_and_headlines.keys())[n:]
@@ -17,7 +23,7 @@ def finviz_scrape(ticker="TSLA"):
     response = requests.get(finviz_url, headers=headers)
 
     if response.status_code != 200: 
-        print("Problem!")
+        LOGGER.error(f"Problem! {finviz_url} can't be reached")
         return
 
     page_source = response.text

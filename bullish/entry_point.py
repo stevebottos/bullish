@@ -19,6 +19,7 @@ def watchlist_tree():
     pass
 
 news_tree.add_command(commands.fetch)
+news_tree.add_command(commands.report)
 
 watchlist_tree.add_command(commands.ls)
 watchlist_tree.add_command(commands.add)
