@@ -26,5 +26,7 @@ setup(name='Bullish',
     packages=[
         'bullish',
     ],
-    # data_files=[]
+    data_files=[
+      (('bullish/package_root', glob.glob('bullish/package_root')))
+    ]
     )

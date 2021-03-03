@@ -1,7 +1,6 @@
 import os
 
 _PACKAGE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)))
-
 ROOT = open(os.path.join(_PACKAGE_DIR, 'package_root'), 'r+').read()
 
 PATHS = {
