@@ -1,4 +1,3 @@
-import json
 import logging 
 
 from bs4 import BeautifulSoup
@@ -31,8 +30,7 @@ def finviz_scrape(ticker="TSLA"):
 
     news_entries = soup.find(id="news-table").find_all("tr")
 
-    headlines  =[]
-    dates = []
+  
     dates_and_headlines = {}
     current_news_date = None
     for entry in news_entries:
