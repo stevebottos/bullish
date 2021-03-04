@@ -1,6 +1,6 @@
 import click
 
-from bullish import __version__, news, watchlist
+from bullish import __version__, news, watchlist, notes
 
 
 @click.version_option(__version__)
@@ -18,9 +18,16 @@ def news_tree():
 def watchlist_tree():
     pass
 
+@bullish.group(name="notes")
+def notes_tree():
+    pass
+
 news_tree.add_command(news.fetch)
 news_tree.add_command(news.report)
 
 watchlist_tree.add_command(watchlist.ls)
 watchlist_tree.add_command(watchlist.add)
 watchlist_tree.add_command(watchlist.remove)
+
+notes_tree.add_command(notes.ls)
+notes_tree.add_command(notes.update)

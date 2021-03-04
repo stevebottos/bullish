@@ -11,9 +11,8 @@ PATHS = {
 
 
 class Files:
-    WATCHLIST = os.path.join(PATHS["data_dir"], "watchlist")
-    NOTES = os.path.join(PATHS["data_dir"], "notes")
-
+    WATCHLIST = os.path.join(PATHS["data_dir"], "watchlist.txt")
+    NOTES = os.path.join(PATHS["data_dir"], "notes.json")
     REPORT = os.path.join(PATHS["reports_dir"], "{}.txt")
 
 

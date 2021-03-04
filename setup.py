@@ -13,7 +13,7 @@ with open(os.path.join(package_root, "package_root"), "w+") as f:
   f.write(package_root)
 
 setup(name='Bullish',
-    version=0.1,
+    version="0.0.1",
     author='Steve Bottos',
     author_email='bottos.steve@alwaysai.co',
     url=None,

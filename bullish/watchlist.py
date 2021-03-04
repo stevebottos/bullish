@@ -23,6 +23,7 @@ def ls():
 @click.command()
 @click.argument('tickers', nargs=-1)
 def add(tickers):
+
     if not os.path.exists(constants.Files.WATCHLIST):
        Path(constants.Files.WATCHLIST).touch()
     
@@ -86,6 +87,4 @@ def remove(tickers):
             print(f"{ticker} does not exist in watchlist")
             continue
 
-    
-    
     print(f"{ticker} removed from watchlist")
