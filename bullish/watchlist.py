@@ -7,7 +7,8 @@ import click
 import colorama
 colorama.init()
 
-from bullish import util, constants
+from bullish.util import util
+from bullish import constants
 from bullish.constants import STYLES
 
 @click.command()

@@ -24,9 +24,9 @@ setup(name='Bullish',
       bullish=bullish.entry_point:bullish
     ''',
     packages=[
-        'bullish',
+        'bullish', 'bullish.util'
     ],
     data_files=[
-      (('bullish/package_root', glob.glob('bullish/package_root')))
+      (('bullish/package_root', glob.glob('bullish/package_root'))),
     ]
     )
