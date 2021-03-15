@@ -14,7 +14,8 @@ class Files:
     WATCHLIST = os.path.join(PATHS["data_dir"], "watchlist.txt")
     NOTES = os.path.join(PATHS["data_dir"], "notes.json")
     REPORT = os.path.join(PATHS["reports_dir"], "{}.txt")
-
+    TEMP_DATA = os.path.join(PATHS["data_dir"], "temp_data.json")
+    DIFF_TEST = os.path.join(PATHS["data_dir"], "{}.json")
 
 NOTES_FIELDS = {
     "Financials": None,

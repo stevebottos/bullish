@@ -16,8 +16,8 @@ from bullish.constants import STYLES
 @click.command()
 @click.argument('tickers', nargs=-1)
 @click.option('--num_dates', '-nd', required=False, type=int, default=0)
-def fetch(tickers, num_dates):   
-    
+def fetch(tickers, num_dates):  
+
     tickers = list(tickers)
 
     if "watchlist" in tickers:

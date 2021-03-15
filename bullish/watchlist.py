@@ -30,7 +30,14 @@ def add(tickers):
     
     if not os.path.exists(constants.Files.NOTES):
        with open(constants.Files.NOTES, "w+") as f:
-           f.write("{}")
+           placeholder = {}
+           json.dump(placeholder, f)
+
+    if not os.path.exists(constants.Files.TEMP_DATA):
+       with open(constants.Files.TEMP_DATA, "w+") as f:
+           rn = str(datetime.now().date())
+           placeholder = {rn : {}}
+           json.dump(placeholder, f)
 
     with open(constants.Files.WATCHLIST, "r") as f1, \
             open(constants.Files.NOTES, "r") as f2:

@@ -1,5 +1,6 @@
 import subprocess
 import os
+import sys 
 
 import wmi
 import click
@@ -10,7 +11,12 @@ def start():
     _path = os.path.dirname(os.path.relpath(__file__))
     script_path = os.path.join("util", "alerts_process.py")
     full_script_path = os.path.join(_path, script_path)
-    subprocess.Popen(f"python {full_script_path} {os.getpid()}", shell=True)
+
+    # TODO: Figure out how to get the process to keep running until stopped on other os types
+    if sys.platform == "win32":
+        subprocess.Popen(f"pythonw {full_script_path} {os.getpid()}")
+    else:
+        print("Alerts supported for this OS type yet")
 
 
 @click.command()
@@ -30,7 +36,7 @@ def check():
     f = wmi.WMI()
     for process in f.Win32_Process():
 
-        if process.CommandLine and "alerts_subprocess.py" in process.CommandLine:
+        if process.CommandLine and "alerts_process.py" in process.CommandLine:
             print("alert process is currently running")
             return
         
