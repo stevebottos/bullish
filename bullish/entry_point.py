@@ -38,6 +38,4 @@ watchlist_tree.add_command(watchlist.remove)
 notes_tree.add_command(notes.ls)
 notes_tree.add_command(notes.update)
 
-alerts_tree.add_command(alerts.start)
-alerts_tree.add_command(alerts.stop)
-alerts_tree.add_command(alerts.check)
+alerts_tree.add_command(alerts.test)

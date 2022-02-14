@@ -1,7 +1,8 @@
 Click
 lxml
 colorama
+fastapi
+uvicorn
 pyYAML
-wmi
 beautifulsoup4==4.9.3
 requests==2.24.0
