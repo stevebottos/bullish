@@ -2,6 +2,7 @@ Click
 lxml
 colorama
 fastapi
+fastapi-utils
 uvicorn
 pyYAML
 beautifulsoup4==4.9.3

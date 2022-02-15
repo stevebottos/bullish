@@ -1,4 +1,4 @@
-import logging 
+import logging
 
 from bs4 import BeautifulSoup
 import requests
@@ -17,11 +17,13 @@ def trim_down_to_n_dates(dates_and_headlines: dict, n=3):
 
 
 def finviz_scrape(ticker="TSLA"):
-    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36"
+    }
     finviz_url = f"https://finviz.com/quote.ashx?t={ticker}"
     response = requests.get(finviz_url, headers=headers)
 
-    if response.status_code != 200: 
+    if response.status_code != 200:
         LOGGER.error(f"Problem! {finviz_url} can't be reached")
         return
 
@@ -30,12 +32,11 @@ def finviz_scrape(ticker="TSLA"):
 
     news_entries = soup.find(id="news-table").find_all("tr")
 
-  
     dates_and_headlines = {}
     current_news_date = None
     for entry in news_entries:
         date_tag = entry.find("td")
-        
+
         if "style" in date_tag.attrs:
             current_news_date = date_tag.text.split(" ")[0]
             dates_and_headlines[current_news_date] = []
@@ -44,10 +45,3 @@ def finviz_scrape(ticker="TSLA"):
         dates_and_headlines[current_news_date].append((a_tag.text, a_tag["href"]))
 
     return dates_and_headlines
-    
-
-
-
-
-
-    

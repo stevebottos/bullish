@@ -1,22 +1,24 @@
-import os 
-from datetime import datetime 
+import os
+from datetime import datetime
 
 import click
 import colorama
+
 colorama.init()
 
 from bullish.util import util
 from bullish import constants
 from bullish.constants import STYLES
-   
+
 ###########################################################
 # base bullish commands
 ###########################################################
 
+
 @click.command()
-@click.argument('tickers', nargs=-1)
-@click.option('--num_dates', '-nd', required=False, type=int, default=0)
-def fetch(tickers, num_dates):  
+@click.argument("tickers", nargs=-1)
+@click.option("--num_dates", "-nd", required=False, type=int, default=0)
+def fetch(tickers, num_dates):
 
     tickers = list(tickers)
 
@@ -41,19 +43,35 @@ def fetch(tickers, num_dates):
         reverse_chron = list(news.keys())[::-1]
 
         for rc in reverse_chron:
-            print(STYLES.YELLOW + STYLES.BOLD + "-"*4+rc+"-"*4+ticker+"-"*92 + STYLES.END)
+            print(
+                STYLES.YELLOW
+                + STYLES.BOLD
+                + "-" * 4
+                + rc
+                + "-" * 4
+                + ticker
+                + "-" * 92
+                + STYLES.END
+            )
 
             for news_entry in news[rc]:
-                print(STYLES.GREEN + STYLES.BOLD + f"  {news_entry[0]}\n" + STYLES.END +
-                STYLES.UNDERLINE + f"  {news_entry[1]}" + STYLES.END)
-        print('')
+                print(
+                    STYLES.GREEN
+                    + STYLES.BOLD
+                    + f"  {news_entry[0]}\n"
+                    + STYLES.END
+                    + STYLES.UNDERLINE
+                    + f"  {news_entry[1]}"
+                    + STYLES.END
+                )
+        print("")
 
 
 @click.command()
-@click.argument('tickers', nargs=-1)
-@click.option('--num_dates', '-nd', required=False, type=int, default=0)
-def report(tickers, num_dates):   
-    
+@click.argument("tickers", nargs=-1)
+@click.option("--num_dates", "-nd", required=False, type=int, default=0)
+def report(tickers, num_dates):
+
     tickers = list(tickers)
 
     if "watchlist" in tickers:
@@ -81,8 +99,8 @@ def report(tickers, num_dates):
             reverse_chron = list(news.keys())[::-1]
 
             for rc in reverse_chron:
-                f.write("-"*4+rc+"-"*4+ticker+"-"*92+"\n")
+                f.write("-" * 4 + rc + "-" * 4 + ticker + "-" * 92 + "\n")
 
                 for news_entry in news[rc]:
                     f.write(f"  {news_entry[0]}\n  {news_entry[1]}\n")
-            f.write('\n')
+            f.write("\n")
