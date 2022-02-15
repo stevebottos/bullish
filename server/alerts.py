@@ -1,4 +1,5 @@
 from typing import Optional, List
+import os
 import asyncio
 import time
 import json
@@ -13,6 +14,10 @@ from pydantic import BaseModel
 from server.data.secrets import Email
 
 app = FastAPI()
+
+if not os.path.exists("data/subscribers.json"):
+    with open("data/subscribers.json", "w+") as f:
+        json.dump({}, f)
 
 
 class Subscription(BaseModel):
