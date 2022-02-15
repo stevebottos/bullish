@@ -28,6 +28,7 @@ def notes_tree():
 def alerts_tree():
     pass
 
+
 news_tree.add_command(news.fetch)
 news_tree.add_command(news.report)
 
@@ -38,4 +39,6 @@ watchlist_tree.add_command(watchlist.remove)
 notes_tree.add_command(notes.ls)
 notes_tree.add_command(notes.update)
 
-alerts_tree.add_command(alerts.test)
+alerts_tree.add_command(alerts.health)
+alerts_tree.add_command(alerts.subscribe)
+alerts_tree.add_command(alerts.unsubscribe)

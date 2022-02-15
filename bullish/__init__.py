@@ -1,6 +1,6 @@
-import os 
+import os
 
-from bullish import constants 
+from bullish import constants
 
 __version__ = "0.0.2"
 
