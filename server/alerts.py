@@ -1,23 +1,26 @@
-from typing import Optional, List
 import os
-import asyncio
-import time
 import json
 import smtplib
 from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+import pickle
+import time
 
 from fastapi import FastAPI, BackgroundTasks
 from fastapi_utils.tasks import repeat_every
 from pydantic import BaseModel
 
 from server.data.secrets import Email
+from server.scraper import get_email_content
 
 app = FastAPI()
 
 if not os.path.exists("data/subscribers.json"):
     with open("data/subscribers.json", "w+") as f:
         json.dump({}, f)
+
+if not os.path.exists("data/todays_entries.pkl"):
+    with open("data/todays_entries.pkl", "wb+") as f:
+        pickle.dump([], f)
 
 
 class Subscription(BaseModel):
@@ -45,9 +48,8 @@ async def alerts_process():
             print(f"Sending mail to {email}")
             message["To"] = email
             try:
-                receiver_address = email
-                text = "TEST"
-                session.sendmail(Email.USER, email, text)
+                email_formatted = await get_email_content(tickers)
+                session.sendmail(Email.USER, email, email_formatted)
             except Exception as e:
                 print(e)
 

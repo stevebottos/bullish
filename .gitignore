@@ -3,8 +3,11 @@
 **/*dist
 **/*egg-info
 **/*__pycache__
-**/data/*
 **/reports/*
 **/*test*
 **/*package_root
-/server/data/*
+bullish/data/*
+server/data/secrets.py
+server/data/subscribers.json
+server/data/todays_entries.pkl
+

@@ -24,8 +24,9 @@ def health():
 
 
 @click.command()
-def start():
-    res = requests.get(url=Server.URL + "/start")
+def test():
+    res = requests.get(url=Server.URL + "/test")
+    print(res.text)
 
 
 @click.command()
@@ -39,5 +40,5 @@ def unsubscribe():
     with open(Files.USER_EMAIL, "r") as f:
         email = f.read()
     data = {"email": email}
-    res = requests.post(url=Server.URL + "/unsubscribe", json=data)
+    requests.post(url=Server.URL + "/unsubscribe", json=data)
     os.remove(Files.USER_EMAIL)
